@@ -199,3 +199,130 @@ Time Elapsed 00:00:00.94
 dotnet run --project AspNetCoreHosted.Server
 ```
 
+ローカルサーバの立ち上げが成功すると次のようなメッセージが表示されます。
+
+```
+Building...
+warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+      No XML encryptor configured. Key {af17ddb7-1457-404c-ac52-58e00bb71efb} may be persisted to storage in unencrypted form.
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5223
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /Users/k/AspNetCoreHosted/AspNetCoreHosted.Server
+```
+
+この時に出力されるローカルサーバのURL http://localhost:5223 にアクセスするとプロジェクトテンプレートで作成されるBlazorページがブラウザに表示されます。
+
+## Azure App Serviceへのデプロイ
+
+### リソースの作成
+
+すでに作成済みの場合はスキップして構いません。
+
+#### `az` コマンドのログイン
+
+```sh
+az login --use-device-code
+```
+
+#### Resource Group
+
+```sh
+az group create --name ***** --location "East US"
+```
+
+#### App Service Plan
+
+```sh
+az appservice plan create --name ***** --resource-group ***** --sku B1 --is-linux
+```
+
+#### App Service WebApp
+
+```sh
+az webapp create --resource-group ***** --plan ***** --name ***** --runtime "DOTNETCORE|8.0"
+```
+
+### リリースパッケージの作成
+
+App Serviceへデプロイするためのパッケージを作成します。通常であればCI/CDを構築すべきですが、ここではZip Deployを利用します。
+
+#### リリース用ファイルの作成
+
+```sh
+cd AspNetCoreHosted.Server
+dotnet publish --configuration Release --output publish
+```
+
+#### デプロイ用パッケージの作成
+
+```sh
+cd publish
+zip -r ../AspNetCoreHosted.zip .
+cd ..
+```
+
+#### App Serviceへデプロイ
+
+```sh
+az webapp deploy --resource-group ***** --name ***** --src-path AspNetCoreHosted.zip --type zip
+```
+
+デプロイが完了するとこのようなメッセージが出力されるはずです。
+
+```
+Initiating deployment
+Deploying from local path: AspNetCoreHosted.zip
+Polling the status of sync deployment. Start Time: 2024-06-22 08:42:10.095172+00:00 UTC
+Status: Build successful. Time: 0(s)
+Status: Starting the site... Time: 16(s)
+Status: Starting the site... Time: 32(s)
+Status: Starting the site... Time: 50(s)
+Status: Starting the site... Time: 66(s)
+Status: Starting the site... Time: 82(s)
+Status: Starting the site... Time: 100(s)
+Status: Starting the site... Time: 116(s)
+Status: Starting the site... Time: 132(s)
+Status: Site started successfully. Time: 148(s)
+Deployment has completed successfully
+You can visit your app at: http://*****.azurewebsites.net
+```
+
+### GitHub Actionsを利用したデプロイ
+
+```yaml
+name: Build and deploy ASP.NET Core app to Azure Web App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Build with dotnet
+      run: dotnet publish AspNetCoreHosted.Server/AspNetCoreHosted.Server.csproj --configuration Release --output ./publish
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: '*****'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ./publish
+```
+
