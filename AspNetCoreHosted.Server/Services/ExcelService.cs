@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace GalileoWeb.Server.Services {
+namespace AspNetCoreHosted.Server.Services {
     public class ExcelService {
         private readonly ILogger<ExcelService> _logger;
 
@@ -12,7 +12,7 @@ namespace GalileoWeb.Server.Services {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        // Excelファイルを読み込み、データを返すメソッド
+        // Excelファイルを読み込み、データを返す
         public List<List<string>> ReadExcel(Stream fileStream) {
             var data = new List<List<string>>();
             try {
@@ -34,7 +34,7 @@ namespace GalileoWeb.Server.Services {
             return data;
         }
 
-        // JSONデータをExcelファイルにエクスポートするメソッド
+        // JSONデータをExcelファイルにエクスポートする
         public byte[] ExportToExcel(List<List<string>> data) {
             try {
                 using (var workbook = new XLWorkbook()) {
