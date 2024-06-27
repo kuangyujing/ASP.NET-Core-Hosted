@@ -39,9 +39,13 @@ namespace AspNetCoreHosted.Server.Controllers {
         }
 
         [HttpPost("export")]
-        public IActionResult ExportToExcel([Query] string filename, [FromBody] List<List<string>> data) {
+        public IActionResult ExportToExcel([FromQuery] string filename, [FromBody] List<List<string>> data) {
             if (data == null || data.Count == 0) {
                 return BadRequest("No data provided.");
+            }
+
+            if (string.IsNullOrEmpty(filename)) {
+                filename = "export.xlsx";
             }
 
             try {
@@ -54,3 +58,4 @@ namespace AspNetCoreHosted.Server.Controllers {
         }
     }
 }
+
