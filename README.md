@@ -221,7 +221,7 @@ info: Microsoft.Hosting.Lifetime[0]
 info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 info: Microsoft.Hosting.Lifetime[0]
-      Content root path: /Users/k/AspNetCoreHosted/AspNetCoreHosted.Server
+      Content root path: /Users/k/BlazorApp/BlazorApp.Server
 ```
 
 この時に出力されるローカルサーバのURL http://localhost:5223 にアクセスするとプロジェクトテンプレートで作成されるBlazorページがブラウザに表示されます。
@@ -263,7 +263,7 @@ App Serviceへデプロイするためのパッケージを作成します。通
 #### リリース用ファイルの作成
 
 ```sh
-cd AspNetCoreHosted.Server
+cd BlazorApp.Server
 dotnet publish --configuration Release --output publish
 ```
 
@@ -271,21 +271,21 @@ dotnet publish --configuration Release --output publish
 
 ```sh
 cd publish
-zip -r ../AspNetCoreHosted.zip .
+zip -r ../BlazorApp.zip .
 cd ..
 ```
 
 #### App Serviceへデプロイ
 
 ```sh
-az webapp deploy --resource-group ***** --name ***** --src-path AspNetCoreHosted.zip --type zip
+az webapp deploy --resource-group ***** --name ***** --src-path BlazorApp.zip --type zip
 ```
 
 デプロイが完了するとこのようなメッセージが出力されるはずです。
 
 ```
 Initiating deployment
-Deploying from local path: AspNetCoreHosted.zip
+Deploying from local path: BlazorApp.zip
 Polling the status of sync deployment. Start Time: 2024-06-22 08:42:10.095172+00:00 UTC
 Status: Build successful. Time: 0(s)
 Status: Starting the site... Time: 16(s)
@@ -302,6 +302,8 @@ You can visit your app at: http://*****.azurewebsites.net
 ```
 
 ### GitHub Actionsを利用したデプロイ
+
+参考までに
 
 ```yaml
 name: Build and deploy ASP.NET Core app to Azure Web App
@@ -324,7 +326,7 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Build with dotnet
-      run: dotnet publish AspNetCoreHosted.Server/AspNetCoreHosted.Server.csproj --configuration Release --output ./publish
+      run: dotnet publish BlazorApp.Server/BlazorApp.Server.csproj --configuration Release --output ./publish
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
@@ -334,4 +336,3 @@ jobs:
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ./publish
 ```
-
