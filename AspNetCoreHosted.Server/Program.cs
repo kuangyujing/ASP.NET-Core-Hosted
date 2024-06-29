@@ -2,16 +2,22 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using AspNetCoreHosted.Server.Services;
+using AspNetCoreHosted.Shared;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();  // Add this line
+builder.Services.AddServerSideBlazor();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add ExcelService
+builder.Services.AddScoped<ExcelService>();
 
 var app = builder.Build();
 
@@ -27,7 +33,7 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
-app.UseBlazorFrameworkFiles();  // Make sure this line is correct
+app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
