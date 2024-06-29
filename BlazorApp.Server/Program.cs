@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using AspNetCoreHosted.Server.Services;
-using AspNetCoreHosted.Shared;
+using BlazorApp.Server.Services;
+using BlazorApp.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 

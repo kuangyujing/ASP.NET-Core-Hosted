@@ -1,4 +1,4 @@
-using AspNetCoreHosted.Server.Services;
+using BlazorApp.Server.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace AspNetCoreHosted.Server.Controllers {
+namespace BlazorApp.Server.Controllers {
     [ApiController]
     [Route("api/[controller]")]
     public class ExcelController : ControllerBase {

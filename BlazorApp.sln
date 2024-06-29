@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHosted.Client", "AspNetCoreHosted.Client\AspNetCoreHosted.Client.csproj", "{EC639007-684D-43D7-8F75-6F9CCDBAAE86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.Client", "BlazorApp.Client\BlazorApp.Client.csproj", "{EC639007-684D-43D7-8F75-6F9CCDBAAE86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHosted.Server", "AspNetCoreHosted.Server\AspNetCoreHosted.Server.csproj", "{7BEFEF2A-15D5-4E99-8D65-E13621DE9B90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.Server", "BlazorApp.Server\BlazorApp.Server.csproj", "{7BEFEF2A-15D5-4E99-8D65-E13621DE9B90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHosted.Shared", "AspNetCoreHosted.Shared\AspNetCoreHosted.Shared.csproj", "{4A25E561-BAF4-4E2E-B2CB-DADF510C2D9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.Shared", "BlazorApp.Shared\BlazorApp.Shared.csproj", "{4A25E561-BAF4-4E2E-B2CB-DADF510C2D9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

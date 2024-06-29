@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspNetCoreHosted.Shared\AspNetCoreHosted.Shared.csproj" />
-    <ProjectReference Include="..\AspNetCoreHosted.Client\AspNetCoreHosted.Client.csproj" />
+    <ProjectReference Include="..\BlazorApp.Shared\BlazorApp.Shared.csproj" />
+    <ProjectReference Include="..\BlazorApp.Client\BlazorApp.Client.csproj" />
   </ItemGroup>
 
 </Project>
