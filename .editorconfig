@@ -1,0 +1,45 @@
+# top-most EditorConfig file
+root = true
+
+# Default settings:
+# A newline ending every file
+# Use 4 spaces as indentation
+[*]
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+
+# C# files
+[*.cs]
+# Indentation options
+csharp_indent_case_contents = true
+csharp_indent_switch_labels = true
+csharp_indent_labels = one_less_than_current
+
+# Newline options
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_within_parenthesized_expression = true
+csharp_preserve_single_line_blocks = true
+csharp_preserve_single_line_statements = true
+
+# Space options
+csharp_space_after_cast = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+csharp_space_between_parentheses = false
+
+# Wrapping options
+csharp_preserve_single_line_statements = true
+csharp_preserve_single_line_blocks = true
+
+# Naming conventions
+dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
+dotnet_naming_rule.interface_should_be_begins_with_i.style = underscore_prefix_style
+dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface_symbols
+dotnet_naming_symbols.interface_symbols.applicable_kinds = interface
+dotnet_naming_style.underscore_prefix_style.required_prefix = I
+dotnet_naming_style.underscore_prefix_style.capitalization = pascal_case
