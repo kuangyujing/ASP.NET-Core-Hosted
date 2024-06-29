@@ -30,7 +30,7 @@ namespace BlazorApp.Server.Services {
             _scopes = new[] { resource + "/user_impersonation" };
 
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _httpClient.BaseAddress = new Uri("https://org22ddaee2.api.crm7.dynamics.com/api/data/v9.2/");
+            _httpClient.BaseAddress = new Uri("https://6e450aad.api.crm7.dynamics.com/api/data/v9.2/");
             _httpClient.Timeout = new TimeSpan(0, 2, 0);
 
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
@@ -59,8 +59,7 @@ namespace BlazorApp.Server.Services {
                     _logger.LogInformation($"User ID: {userId}");
                     return userId;
                 }
-            }
-            else {
+            } else {
                 _logger.LogError($"Web API call failed. Reason: {response.ReasonPhrase}");
                 return Guid.Empty;
             }
@@ -84,8 +83,7 @@ namespace BlazorApp.Server.Services {
                 var accounts = await _authBuilder.GetAccountsAsync();
                 tokenResult = await _authBuilder.AcquireTokenSilent(_scopes, accounts.FirstOrDefault()).ExecuteAsync();
                 _logger.LogInformation("Token acquired silently.");
-            }
-            catch (MsalUiRequiredException) {
+            } catch (MsalUiRequiredException) {
                 tokenResult = await _authBuilder.AcquireTokenInteractive(_scopes).ExecuteAsync();
                 _logger.LogInformation("Token acquired interactively.");
             }

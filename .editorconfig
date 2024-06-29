@@ -18,8 +18,8 @@ csharp_indent_labels = one_less_than_current
 
 # Newline options
 csharp_new_line_before_open_brace = none
-csharp_new_line_before_else = true
-csharp_new_line_before_catch = true
+csharp_new_line_before_else = false
+csharp_new_line_before_catch = false
 csharp_new_line_before_finally = true
 csharp_new_line_within_parenthesized_expression = true
 csharp_preserve_single_line_blocks = true

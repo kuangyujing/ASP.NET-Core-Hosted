@@ -58,4 +58,3 @@ namespace BlazorApp.Server.Controllers {
         }
     }
 }
-
