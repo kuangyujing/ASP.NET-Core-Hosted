@@ -1,4 +1,13 @@
-# ASP.NET Core Hosted
+# ASP.NET Core Hostedの始め方
+
+## なぜ、ASP.NET Core Hostedなのか
+
+Azure AD (Entra ID)を利用した認証、Power Platformのパフォーマンス向上、Office 365のサポート、そしてAzureとの高い親和性を活かすことで、Microsoftのエコシステムの中核を担うことができます。
+
+さらに、Visual StudioやVS CodeがMicrosoft製品であるため、いち早くネイティブでサポートされます。
+
+Blazorをフロントエンドに採用することで、JavaScriptを使用せずにC#で一貫した開発が可能になります。バックエンドでフロントエンドをホスティングし、同一のソリューション内でコードを共通化することで、ビジネスロジックやデータモデルを効率的に再利用できます。
+
 
 ## ソリューションとプロジェクトの作成
 
