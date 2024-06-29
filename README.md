@@ -15,9 +15,9 @@ dotnet --version # => 8.0.300
 ### ソリューションの作成
 
 ```sh
-mkdir AspNetCoreHosted
-cd AspNetCoreHosted
-dotnet new sln -n AspNetCoreHosted
+mkdir BlazorApp
+cd BlazorApp
+dotnet new sln -n BlazorApp
 ```
 
 次にASP.NET Core Hostedプロジェクトを作成しますが、.NET 8からはプロジェクトテンプレートとして付属しなくなりました。フレームワークとしてサポートされなくなったわけではないため、手動でホスティングされたBlazor Web Assemblyプロジェクトを作成します。
@@ -27,7 +27,7 @@ dotnet new sln -n AspNetCoreHosted
 フロントエンドのBlazor WebAssemblyプロジェクトを作成します。
 
 ```sh
-dotnet new blazorwasm -n AspNetCoreHosted.Client
+dotnet new blazorwasm -n BlazorApp.Client
 ```
 
 ### ASP.NET Core Web APIプロジェクトの作成
@@ -35,7 +35,7 @@ dotnet new blazorwasm -n AspNetCoreHosted.Client
 バックエンドのASP.NET Core Web APIプロジェクトを作成します。
 
 ```sh
-dotnet new webapi -n AspNetCoreHosted.Server
+dotnet new webapi -n BlazorApp.Server
 ```
 
 ### 共有プロジェクトの作成
@@ -43,15 +43,15 @@ dotnet new webapi -n AspNetCoreHosted.Server
 フロントエンドとバックエンドの両方で使用する共有プロジェクトを作成します。
 
 ```sh
-dotnet new classlib -n AspNetCoreHosted.Shared
+dotnet new classlib -n BlazorApp.Shared
 ```
 
 ### ソリューションにプロジェクトを追加
 
 ```sh
-dotnet sln AspNetCoreHosted.sln add AspNetCoreHosted.Client/AspNetCoreHosted.Client.csproj
-dotnet sln AspNetCoreHosted.sln add AspNetCoreHosted.Server/AspNetCoreHosted.Server.csproj
-dotnet sln AspNetCoreHosted.sln add AspNetCoreHosted.Shared/AspNetCoreHosted.Shared.csproj
+dotnet sln BlazorApp.sln add BlazorApp.Client/BlazorApp.Client.csproj
+dotnet sln BlazorApp.sln add BlazorApp.Server/BlazorApp.Server.csproj
+dotnet sln BlazorApp.sln add BlazorApp.Shared/BlazorApp.Shared.csproj
 ```
 
 ### プロジェクト間の参照
@@ -73,7 +73,7 @@ dotnet add MyBlazorApp.Server/MyBlazorApp.Server.csproj reference MyBlazorApp.Cl
 フロントエンドのWebAssemblyをホスティングするためのパッケージをインスｔーオールします。
 
 ```sh
-dotnet add AspNetCoreHosted.Server package Microsoft.AspNetCore.Components.WebAssembly.Server
+dotnet add BlazorApp.Server package Microsoft.AspNetCore.Components.WebAssembly.Server
 ```
 
 #### Program.csの修正
@@ -157,7 +157,7 @@ app.Run();
 ```cs
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using AspNetCoreHosted.Client;
+using BlazorApp.Client;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -181,10 +181,10 @@ dotnet build
 ```
   Determining projects to restore...
   All projects are up-to-date for restore.
-  AspNetCoreHosted.Shared -> AspNetCoreHosted/AspNetCoreHosted.Shared/bin/Debug/net8.0/AspNetCoreHosted.Shared.dll
-  AspNetCoreHosted.Client -> AspNetCoreHosted/AspNetCoreHosted.Client/bin/Debug/net8.0/AspNetCoreHosted.Client.dll
-  AspNetCoreHosted.Client (Blazor output) -> /Users/k/AspNetCoreHosted/AspNetCoreHosted.Client/bin/Debug/net8.0/wwwroot
-  AspNetCoreHosted.Server -> AspNetCoreHosted/AspNetCoreHosted.Server/bin/Debug/net8.0/AspNetCoreHosted.Server.dll
+  BlazorApp.Shared -> BlazorApp/BlazorApp.Shared/bin/Debug/net8.0/BlazorApp.Shared.dll
+  BlazorApp.Client -> BlazorApp/BlazorApp.Client/bin/Debug/net8.0/BlazorApp.Client.dll
+  BlazorApp.Client (Blazor output) -> /Users/k/BlazorApp/BlazorApp.Client/bin/Debug/net8.0/wwwroot
+  BlazorApp.Server -> BlazorApp/BlazorApp.Server/bin/Debug/net8.0/BlazorApp.Server.dll
 
 Build succeeded.
     0 Warning(s)
@@ -196,6 +196,6 @@ Time Elapsed 00:00:00.94
 ビルドが完了すると実行できるようになるので、次のコマンドでバックエンドのプロジェクトを実行します。フロントエンドはバックエンドによってホスティングされるため、特に何もする必要はありません。
 
 ```sh
-dotnet run --project AspNetCoreHosted.Server
+dotnet run --project BlazorApp.Server
 ```
 

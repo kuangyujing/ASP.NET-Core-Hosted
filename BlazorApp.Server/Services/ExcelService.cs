@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace AspNetCoreHosted.Server.Services {
+namespace BlazorApp.Server.Services {
     public class ExcelService {
         private readonly ILogger<ExcelService> _logger;
 
