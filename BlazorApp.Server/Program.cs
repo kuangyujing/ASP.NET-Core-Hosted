@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using BlazorApp.Server.Services;
-using BlazorApp.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,18 +15,23 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add ExcelService
+// Add services
 builder.Services.AddScoped<ExcelService>();
+builder.Services.AddScoped<DataverseService>();
+builder.Services.AddHttpClient<DataverseService>(); // HttpClientの追加
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment())
+{
     app.UseDeveloperExceptionPage();
 
     app.UseSwagger();
     app.UseSwaggerUI();
-} else {
+}
+else
+{
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
@@ -38,10 +42,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Replace UseEndpoints with top level route registrations
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();
-
