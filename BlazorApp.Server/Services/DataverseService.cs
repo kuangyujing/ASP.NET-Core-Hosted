@@ -42,13 +42,13 @@ namespace BlazorApp.Server.Services {
                 return Guid.Empty;
             }
 
-            HttpRequestHeaders headers = _httpClient.DefaultRequestHeaders;
-            headers.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
-            headers.Add("OData-MaxVersion", "4.0");
-            headers.Add("OData-Version", "4.0");
-            headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            using var request = new HttpRequestMessage(HttpMethod.Get, "WhoAmI");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+            request.Headers.Add("OData-MaxVersion", "4.0");
+            request.Headers.Add("OData-Version", "4.0");
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = await _httpClient.GetAsync("WhoAmI");
+            var response = await _httpClient.SendAsync(request);
 
             if (response.IsSuccessStatusCode) {
                 string jsonContent = await response.Content.ReadAsStringAsync();

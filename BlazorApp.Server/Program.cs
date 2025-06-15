@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add services
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ExcelService>();
 builder.Services.AddScoped<DataverseService>();
 builder.Services.AddHttpClient<DataverseService>(); // HttpClientの追加
