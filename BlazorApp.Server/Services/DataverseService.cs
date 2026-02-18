@@ -67,8 +67,8 @@ namespace BlazorApp.Server.Services {
 
         private async Task<AuthenticationResult> GetTokenAsync() {
             // Check if token is in the cookies
-            var request = _httpContextAccessor.HttpContext.Request;
-            var response = _httpContextAccessor.HttpContext.Response;
+            var request = _httpContextAccessor.HttpContext?.Request;
+            var response = _httpContextAccessor.HttpContext?.Response;
             if (request.Cookies.TryGetValue("AuthToken", out string tokenJson)) {
                 var token = JsonSerializer.Deserialize<AuthenticationResult>(tokenJson);
                 if (token != null && token.ExpiresOn > DateTimeOffset.Now) {
